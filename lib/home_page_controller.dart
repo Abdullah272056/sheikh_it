@@ -143,8 +143,9 @@ class HomePageController extends GetxController {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
 
-        try {
 
+        try {
+          showLoadingDialog("Uploading...");
           var headers = {
             'Authorization': 'Bearer '+token,
           };
@@ -160,10 +161,10 @@ class HomePageController extends GetxController {
 
         //  _showToast(response.statusCode.toString());
           if (response.statusCode == 200) {
-
+            Get.back();
             var data = jsonDecode(res.body);
             showToastShort("Image Saved Successfully!");
-
+            getUserAccountDetails( token);
 
           }
           if (response.statusCode == 404) {
@@ -203,7 +204,7 @@ class HomePageController extends GetxController {
             },
           );
 
-          showToastShort(response.statusCode.toString()) ;
+        //  showToastShort(response.statusCode.toString()) ;
           Get.back();
           if (response.statusCode == 200) {
 
@@ -234,7 +235,7 @@ class HomePageController extends GetxController {
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
         backgroundColor: Colors.white,
-        textColor: Colors.white,
+        textColor: Colors.black,
         fontSize: 16.0);
   }
 
